@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>পেজ খুঁজে পাওয়া যায়নি | রূপসা জনকল্যাণ ফাউন্ডেশন</title>
+<meta name="theme-color" content="#004d40">
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
+
+:root{
+  --primary-bg: linear-gradient(135deg, #004d40, #00796b);
+  --accent: #80cbc4;
+  --glass: rgba(255,255,255,0.08);
+  --glass-border: rgba(255,255,255,0.15);
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Hind Siliguri',sans-serif;}
+html,body{height:100%;}
+body{
+  min-height:100vh;
+  background: var(--primary-bg);
+  background-attachment: fixed;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow-x:hidden;
+  position:relative;
+  padding:20px;
+}
+
+/* floating blobs */
+.blob{
+  position:fixed;
+  border-radius:50%;
+  filter:blur(60px);
+  opacity:0.35;
+  z-index:0;
+  animation: float 12s ease-in-out infinite;
+}
+.blob1{width:280px;height:280px;background:#80cbc4;top:-80px;left:-80px;animation-delay:0s;}
+.blob2{width:220px;height:220px;background:#004d40;bottom:-60px;right:-60px;animation-delay:2s;}
+.blob3{width:180px;height:180px;background:#26a69a;top:50%;left:80%;animation-delay:4s;}
+@keyframes float{
+  0%,100%{transform:translateY(0) translateX(0);}
+  50%{transform:translateY(-30px) translateX(20px);}
+}
+
+/* floating particles */
+.particle{
+  position:fixed;
+  width:5px;height:5px;
+  background:rgba(255,255,255,0.5);
+  border-radius:50%;
+  z-index:0;
+  animation: rise linear infinite;
+}
+@keyframes rise{
+  from{transform:translateY(0); opacity:0;}
+  10%{opacity:1;}
+  90%{opacity:1;}
+  to{transform:translateY(-100vh); opacity:0;}
+}
+
+.card{
+  position:relative;
+  z-index:2;
+  max-width:520px;
+  width:100%;
+  background: var(--glass);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border:1px solid var(--glass-border);
+  border-radius:28px;
+  padding:44px 32px 36px;
+  text-align:center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+  animation: cardIn 0.7s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes cardIn{
+  from{opacity:0; transform:translateY(30px) scale(0.96);}
+  to{opacity:1; transform:translateY(0) scale(1);}
+}
+
+.logo-wrap{
+  width:64px;height:64px;
+  margin:0 auto 14px;
+  border-radius:50%;
+  overflow:hidden;
+  border:2px solid rgba(255,255,255,0.4);
+  box-shadow:0 4px 20px rgba(0,0,0,0.3);
+}
+.logo-wrap img{width:100%;height:100%;object-fit:cover;}
+
+.foundation-name{
+  font-size:14px;
+  letter-spacing:0.5px;
+  color:var(--accent);
+  font-weight:600;
+  margin-bottom:22px;
+  opacity:0.9;
+}
+
+.error-code{
+  font-size:96px;
+  font-weight:700;
+  line-height:1;
+  background: linear-gradient(90deg,#ffffff,#80cbc4,#ffffff);
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  animation: shine 3s linear infinite;
+  text-shadow: 0 0 40px rgba(128,203,196,0.35);
+  position:relative;
+}
+@keyframes shine{
+  to{background-position:200% center;}
+}
+
+.icon-float{
+  font-size:34px;
+  color:var(--accent);
+  margin:10px 0 6px;
+  animation: bob 2.4s ease-in-out infinite;
+}
+@keyframes bob{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-8px);}
+}
+
+h1{
+  font-size:22px;
+  font-weight:700;
+  margin:8px 0 10px;
+}
+p.desc{
+  font-size:15px;
+  line-height:1.7;
+  color:rgba(255,255,255,0.85);
+  margin-bottom:26px;
+}
+
+/* smart search */
+.search-box{
+  display:flex;
+  align-items:center;
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.2);
+  border-radius:14px;
+  padding:6px 6px 6px 16px;
+  margin-bottom:22px;
+  transition:.3s;
+}
+.search-box:focus-within{
+  border-color:var(--accent);
+  background:rgba(255,255,255,0.15);
+}
+.search-box i{color:rgba(255,255,255,0.6); margin-right:10px;}
+.search-box input{
+  flex:1;
+  background:transparent;
+  border:none;
+  outline:none;
+  color:#fff;
+  font-size:14px;
+  padding:10px 0;
+}
+.search-box input::placeholder{color:rgba(255,255,255,0.5);}
+.search-box button{
+  background: var(--accent);
+  color:#00332c;
+  border:none;
+  border-radius:10px;
+  padding:10px 16px;
+  font-weight:600;
+  font-size:14px;
+  cursor:pointer;
+  transition:.25s;
+  white-space:nowrap;
+}
+.search-box button:hover{ background:#a2ded6; transform:translateY(-1px);}
+
+.quick-links{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:24px;
+}
+.quick-links a{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  text-decoration:none;
+  color:#fff;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.12);
+  padding:12px 14px;
+  border-radius:12px;
+  font-size:13.5px;
+  font-weight:500;
+  transition:.25s;
+}
+.quick-links a:hover{
+  background:rgba(255,255,255,0.16);
+  transform:translateY(-2px);
+  border-color:var(--accent);
+}
+.quick-links i{color:var(--accent); font-size:15px;}
+
+.home-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:#fff;
+  color:#004d40;
+  text-decoration:none;
+  font-weight:700;
+  font-size:15px;
+  padding:13px 28px;
+  border-radius:14px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.25);
+  transition:.25s;
+}
+.home-btn:hover{ transform:translateY(-2px); box-shadow:0 12px 30px rgba(0,0,0,0.3); }
+
+.redirect-note{
+  margin-top:18px;
+  font-size:12.5px;
+  color:rgba(255,255,255,0.6);
+}
+.redirect-note span{color:var(--accent); font-weight:600;}
+.redirect-note a{color:var(--accent); text-decoration:underline; cursor:pointer;}
+
+@media (max-width:480px){
+  .error-code{font-size:72px;}
+  .card{padding:34px 22px 28px; border-radius:22px;}
+  .quick-links{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+<div id="particles"></div>
+
+<div class="card">
+  <div class="logo-wrap">
+    <img src="rupsha_jonokollan_foundation.webp" alt="RJF Logo" onerror="this.parentElement.style.display='none'">
+  </div>
+  <div class="foundation-name">রূপসা জনকল্যাণ ফাউন্ডেশন</div>
+
+  <div class="error-code">404</div>
+  <div class="icon-float"><i class="fa-solid fa-compass"></i></div>
+
+  <h1>ওহ্‌! পেজটি খুঁজে পাওয়া যায়নি</h1>
+  <p class="desc">আপনি যে পেজটি খুঁজছেন সেটি হয়তো মুছে ফেলা হয়েছে, নাম পরিবর্তন হয়েছে, অথবা লিংকটি সঠিক নয়। চিন্তা নেই — নিচ থেকে সহজেই খুঁজে নিন।</p>
+
+  <form class="search-box" id="searchForm" onsubmit="return handleSearch(event)">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="text" id="searchInput" placeholder="যা খুঁজছেন লিখুন... (যেমনঃ দান, গ্যালারি)">
+    <button type="submit">খুঁজুন</button>
+  </form>
+
+  <div class="quick-links">
+    <a href="/"><i class="fa-solid fa-house"></i> হোম পেজ</a>
+    <a href="/about.html"><i class="fa-solid fa-users"></i> আমাদের সম্পর্কে</a>
+    <a href="/donate/"><i class="fa-solid fa-hand-holding-heart"></i> দান করুন</a>
+    <a href="/gallery.html"><i class="fa-solid fa-images"></i> গ্যালারি</a>
+    <a href="/blog.html"><i class="fa-solid fa-newspaper"></i> ব্লগ</a>
+    <a href="/member/"><i class="fa-solid fa-people-group"></i> সদস্যবৃন্দ</a>
+  </div>
+
+  <a href="/" class="home-btn"><i class="fa-solid fa-arrow-left-long"></i> হোম পেজে ফিরে যান</a>
+
+  <div class="redirect-note">
+    <span id="countdown">10</span> সেকেন্ড পর স্বয়ংক্রিয়ভাবে হোম পেজে যাচ্ছেন —
+    <a onclick="cancelRedirect()" id="cancelLink">বাতিল করুন</a>
+  </div>
+</div>
+
+<script>
+// floating particles
+const particleContainer = document.getElementById('particles');
+for(let i=0;i<22;i++){
+  const p = document.createElement('div');
+  p.className = 'particle';
+  p.style.left = Math.random()*100 + 'vw';
+  p.style.bottom = '-10px';
+  p.style.animationDuration = (8 + Math.random()*10) + 's';
+  p.style.animationDelay = (Math.random()*10) + 's';
+  p.style.opacity = Math.random()*0.5 + 0.2;
+  particleContainer.appendChild(p);
+}
+
+// smart search: map known keywords to real pages of the site
+const routeMap = [
+  { keys: ['দান','donate','ডোনেট','অনুদান'], url: '/donate/' },
+  { keys: ['গ্যালারি','ছবি','gallery','photo'], url: '/gallery.html' },
+  { keys: ['ব্লগ','blog','খবর','news'], url: '/blog.html' },
+  { keys: ['সদস্য','member','টিম','team'], url: '/member/' },
+  { keys: ['আমাদের সম্পর্কে','about','পরিচিতি'], url: '/about.html' },
+  { keys: ['রেজিস্ট্রেশন','registration','ফরম'], url: '/registration/' },
+  { keys: ['মিটিং','meeting'], url: '/meeting/' },
+  { keys: ['ফিডব্যাক','feedback','মতামত'], url: '/feedback/' },
+  { keys: ['সাবস্ক্রাইব','subscribe'], url: '/subscribe/' },
+  { keys: ['যাচাই','verify'], url: '/verify.html' },
+  { keys: ['ড্যাশবোর্ড','dashboard','impact'], url: '/impact-dashboard.html' },
+];
+
+function handleSearch(e){
+  e.preventDefault();
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  if(!q){ return false; }
+  const match = routeMap.find(r => r.keys.some(k => q.includes(k.toLowerCase())));
+  window.location.href = match ? match.url : '/';
+  return false;
+}
+
+// auto redirect countdown
+let seconds = 10;
+let redirectTimer;
+const countdownEl = document.getElementById('countdown');
+
+function tick(){
+  seconds--;
+  if(seconds <= 0){
+    window.location.href = '/';
+    return;
+  }
+  countdownEl.textContent = seconds;
+  redirectTimer = setTimeout(tick, 1000);
+}
+redirectTimer = setTimeout(tick, 1000);
+
+function cancelRedirect(){
+  clearTimeout(redirectTimer);
+  document.querySelector('.redirect-note').innerHTML = '✅ স্বয়ংক্রিয় রিডাইরেক্ট বাতিল করা হয়েছে।';
+}
+</script>
+
+</body>
+</html>
