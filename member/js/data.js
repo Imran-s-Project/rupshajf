@@ -53,7 +53,7 @@ const foundationMembers = [
       image: "/member/imran_ahmed.webp",
       desc: "ইনি ফাউন্ডেশনের ওয়েবসাইট তৈরি করা সহ ফেসবুকে অ্যানাউন্সমেন্ট এবং ইউটিউবে ভিডিও আপলোড সহ সকল টেকনিক্যাল বিষয়ে এক্সপার্ট। ফাউন্ডেশনের কার্যক্রম বিভিন্ন মানুষের মধ্যে ছড়িয়ে দেন।",
       memberid: "RJF-2026-9689", profileUrl: "/verify/RJF-2026-9689", facebook: "https://facebook.com/imran.ahmedddddd",
-      whatsapp: "https://wa.me/8801957329211", github: "https://github.com/Imran-s-Project" },
+      whatsapp: "https://wa.me/8801957329211", github: "https://github.com/imran-ahmedd" },
 
     { id: 8, name: "আব্দুল্লাহ্‌ আল ফাহিম", role: "সহ-সভাপতি", category: "সহ-সভাপতি", status: "active",
       image: "/member/fahim.webp", desc: "কমিটির বিভিন্ন সিদ্ধান্ত গ্রহণে সভাপতিকে সহায়তা করেন।",
