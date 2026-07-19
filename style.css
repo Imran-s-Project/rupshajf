@@ -1,6 +1,32 @@
 :root {
-    --primary-bg: linear-gradient(135deg, #004d40, #00796b);
+    /* --- ব্র্যান্ড কালার (পুরো সাইটে একই রঙ ব্যবহার হবে) --- */
+    --brand-dark: #004d40;
+    --brand: #00796b;
+    --brand-light: #4db6ac;
+    --accent: #ff5722;
+
+    --primary-bg: linear-gradient(135deg, var(--brand-dark), var(--brand));
     --glass: rgba(255, 255, 255, 0.15);
+
+    /* --- থিম ভেরিয়েবল: লাইট মোড (ডিফল্ট) --- */
+    --bg: #f7f9f8;
+    --bg-alt: #ffffff;
+    --surface: #ffffff;
+    --surface-border: #e6ebe9;
+    --text: #1c2b28;
+    --text-muted: #5c6b68;
+    --shadow: 0 10px 30px rgba(0, 77, 64, 0.08);
+}
+
+body.dark-mode {
+    /* --- থিম ভেরিয়েবল: ডার্ক মোড --- */
+    --bg: #0e1512;
+    --bg-alt: #141c19;
+    --surface: #182420;
+    --surface-border: #24332e;
+    --text: #eef3f1;
+    --text-muted: #9db3ac;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
 * {
@@ -8,6 +34,16 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Hind Siliguri', sans-serif;
+}
+
+html {
+    background: var(--bg);
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.4s ease, color 0.4s ease;
 }
 
 header {
@@ -108,7 +144,7 @@ header {
 
 /* ডার্ক মোড */
 .dark-mode header {
-    background: #121212;
+    background: linear-gradient(135deg, #00251a, #012e24);
 }
 
 /* মেনু ট্রিগার বাটন (থ্রি লাইন) */
@@ -117,7 +153,7 @@ header {
     top: 20px;
     left: 20px;
     z-index: 1001;
-    background: green;
+    background: var(--brand);
     backdrop-filter: blur(10px);
     width: 40px;
     height: 40px;
@@ -138,9 +174,10 @@ header {
     left: -280px; /* শুরুতে স্ক্রিনের বাইরে থাকবে */
     width: 280px;
     height: 100%;
-    background: #ffffff;
+    background: var(--surface);
+    color: var(--text);
     z-index: 2000;
-    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.4s ease;
     box-shadow: 5px 0 15px rgba(0,0,0,0.1);
     padding: 20px;
 }
@@ -155,19 +192,19 @@ header {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid var(--surface-border);
     padding-bottom: 15px;
 }
 
-.sidebar-header h3 { color: #004d40; }
-.sidebar-header i { font-size: 22px; cursor: pointer; color: #ff5722; }
+.sidebar-header h3 { color: var(--brand); }
+.sidebar-header i { font-size: 22px; cursor: pointer; color: var(--accent); }
 
 /* লিংক স্টাইল */
 .sidebar-links { list-style: none; }
 .sidebar-links li { margin: 15px 0; }
 .sidebar-links a {
     text-decoration: none;
-    color: #444;
+    color: var(--text);
     font-size: 17px;
     display: flex;
     align-items: center;
@@ -177,9 +214,9 @@ header {
     transition: 0.3s;
 }
 
-.sidebar-links a:hover { background: #f0f7f6; color: #00796b; }
+.sidebar-links a:hover { background: rgba(0, 121, 107, 0.1); color: var(--brand); }
 
-.side-donate { background: #ff5722; color: white !important; justify-content: center; }
+.side-donate { background: var(--accent); color: white !important; justify-content: center; }
 
 /* ব্যাকড্রপ বা ওভারলে */
 .overlay {
@@ -195,24 +232,21 @@ header {
 
 .overlay.active { display: block; }
 
-/* ডার্ক মোড সাপোর্ট */
-.dark-mode .sidebar { background: #1a1a1a; color: white; }
-.dark-mode .sidebar-links a { color: #ddd; }
-
 /* নোটিশ সেকশন মেইন স্টাইল */
 .notice-section {
     display: flex;
     align-items: center;
-    background: #ffffff;
+    background: var(--surface);
     height: 47px;
-    border-bottom: 2px solid #00796b;
+    border-bottom: 2px solid var(--brand);
     overflow: hidden;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    transition: background 0.4s ease;
 }
 
 /* নোটিশের শিরোনাম (স্থির থাকবে) */
 .notice-title {
-    background: #00796b;
+    background: var(--brand);
     color: white;
     padding: 0 15px;
     height: 100%;
@@ -230,7 +264,7 @@ header {
 .notice-container {
     flex: 1;
     overflow: hidden;
-    background: #c8e6c9;
+    background: rgba(0, 121, 107, 0.08);
     height: 100%;
     display: flex;
     align-items: center;
@@ -240,8 +274,8 @@ header {
 .moving-text {
     display: inline-block;
     white-space: nowrap;
-    font-size: 18px;
-    color: #b71c1c;
+    font-size: 16px;
+    color: var(--brand-dark);
     font-weight: bold;
     padding-left: 100%;
     animation: scroll-left 25s linear infinite; /* একদম স্মুথ এনিমেশন */
@@ -259,38 +293,35 @@ header {
 }
 
 /* ডার্ক মোড সাপোর্ট */
-.dark-mode .notice-section {
-    background: #222;
-    border-color: #004d40;
-}
 .dark-mode .notice-container {
-    background: #1a1a1a;
+    background: rgba(77, 182, 172, 0.1);
 }
 .dark-mode .moving-text {
-    color: #ddd;
+    color: var(--brand-light);
 }
 
 .quote-section {
     padding: 20px;
     display: flex;
     justify-content: center;
-    background: #fdfdfd;
+    background: var(--bg);
 }
 
 .quote-card {
     max-width: 600px;
-    background: rgba(255, 255, 255, 0.8);
-    border-left: 5px solid #00796b;
+    width: 100%;
+    background: var(--surface);
+    border-left: 5px solid var(--brand);
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-shadow: var(--shadow);
     text-align: center;
-    transition: 0.3s;
+    transition: background 0.4s ease, box-shadow 0.3s ease;
 }
 
 .quote-card i {
     font-size: 20px;
-    color: #00796b;
+    color: var(--brand);
     margin-bottom: 10px;
     display: block;
 }
@@ -298,27 +329,21 @@ header {
 #quoteText {
     font-size: 18px;
     font-style: italic;
-    color: #333;
+    color: var(--text);
     line-height: 1.6;
     margin-bottom: 10px;
 }
 
 #quoteAuthor {
     font-weight: bold;
-    color: #555;
+    color: var(--text-muted);
     font-size: 14px;
 }
 
-/* ডার্ক মোড সাপোর্ট */
-.dark-mode .quote-section { background: #121212; }
-.dark-mode .quote-card { background: #1e1e1e; border-color: #004d40; color: white; }
-.dark-mode #quoteText { color: #ddd; }
-.dark-mode #quoteAuthor { color: #aaa; }
-
 /* বক্স সেকশন ডিজাইন */
 .about-boxes {
-    padding: 6px 2px;
-    background: #f9f9f9;
+    padding: 40px 2px;
+    background: var(--bg);
 }
 
 .section-title {
@@ -327,12 +352,15 @@ header {
 }
 
 .section-title h2 {
-    color: #004d40;
+    color: var(--brand-dark);
     font-size: 28px;
+    transition: color 0.4s ease;
 }
 
+.dark-mode .section-title h2 { color: var(--text); }
+
 .section-title p {
-    color: #777;
+    color: var(--text-muted);
     font-size: 14px;
 }
 
@@ -345,35 +373,36 @@ header {
 }
 
 .info-box {
-    background: #ffffff;
+    background: var(--surface);
     padding: 30px;
     border-radius: 15px;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    transition: 0.3s;
-    border-bottom: 4px solid #00796b;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.4s ease;
+    border-bottom: 4px solid var(--brand);
 }
 
 .info-box:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-    background: #f0f7f6;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
 }
 
-.box-icon {
+.box-icon, .box-icon-bg {
     font-size: 40px;
-    color: #ff5722;
+    color: var(--accent);
     margin-bottom: 20px;
 }
 
 .info-box h3 {
-    color: #004d40;
+    color: var(--brand-dark);
     margin-bottom: 15px;
     font-size: 22px;
 }
 
+.dark-mode .info-box h3 { color: var(--brand-light); }
+
 .info-box p {
-    color: #555;
+    color: var(--text-muted);
     line-height: 1.8;
     font-size: 13px;
 }
@@ -391,31 +420,20 @@ header {
     align-items: flex-start;
     margin-bottom: 10px;
     font-size: 13px;
-    color: #555;
+    color: var(--text-muted);
     line-height: 1.5;
 }
 
 .point-list li i {
     margin-right: 10px;
     margin-top: 3px;
-    color: #00796b; /* আইকনের কালার তোর বর্ডার কালারের সাথে মিল রেখে */
+    color: var(--brand);
     font-size: 14px;
 }
 
 .point-list li span {
     flex: 1;
 }
-
-/* ডার্ক মোড সাপোর্ট */
-.dark-mode .about-boxes { background: #121212; }
-.dark-mode .info-box {
-    background: #1e1e1e;
-    border-color: #004d40;
-}
-.dark-mode .info-box h3 { color: #80cbc4; }
-.dark-mode .info-box p, 
-.dark-mode .point-list li { color: #bbb; } /* ডার্ক মোডে পয়েন্টের লেখা */
-.dark-mode .section-title h2 { color: #fff; }
 
 
 
@@ -431,33 +449,25 @@ header {
 
 .premium-btn {
     position: relative;
-    display: inline-block; /* লিঙ্কের জন্য এটি প্রয়োজন */
+    display: inline-block; /* লিঙ্কের জন্য এটি প্রয়োজন */
     padding: 15px 35px;
     font-size: 18px;
     font-weight: 600;
     color: white;
     text-decoration: none; /* লিঙ্কের আন্ডারলাইন সরানোর জন্য */
-    background: linear-gradient(45deg, #ff0055, #7000ff, #00d4ff);
-    background-size: 200% 200%;
+    background: linear-gradient(135deg, var(--brand), var(--brand-dark));
     border: none;
-    border-radius: 12px;
+    border-radius: 50px;
     cursor: pointer;
     overflow: hidden;
-    transition: all 0.4s ease;
-    animation: gradientMove 3s infinite linear;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.35s ease;
+    box-shadow: 0 8px 25px rgba(0, 121, 107, 0.3);
     text-align: center;
-}
-
-@keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
 }
 
 .premium-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(112, 0, 255, 0.4);
+    box-shadow: 0 10px 30px rgba(0, 121, 107, 0.45);
     color: white; /* হোভারে টেক্সট সাদা রাখার জন্য */
 }
 
@@ -488,18 +498,19 @@ header {
 }
 
 .location-box {
-    background: #fff;
+    background: var(--surface);
     width: 100%;
     max-width: 500px;
     padding: 20px;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    box-shadow: var(--shadow);
     text-align: center;
-    border: 1px solid #eee;
+    border: 1px solid var(--surface-border);
+    transition: background 0.4s ease;
 }
 
 .location-title {
-    color: #00796b;
+    color: var(--brand);
     margin-bottom: 15px;
     font-size: 20px;
 }
@@ -507,11 +518,11 @@ header {
 .location-details {
     text-align: left;
     margin-bottom: 20px;
-    background: #f9f9f9;
+    background: var(--bg);
     padding: 15px;
     border-radius: 12px;
     font-size: 14px;
-    color: #444;
+    color: var(--text-muted);
     line-height: 1.8;
 }
 
@@ -521,7 +532,7 @@ header {
     border-radius: 15px;
     overflow: hidden;
     margin-bottom: 15px;
-    border: 2px solid #e0f2f1;
+    border: 2px solid var(--surface-border);
 }
 
 .map-container iframe {
@@ -533,7 +544,7 @@ header {
 .map-btn {
     display: inline-block;
     padding: 10px 25px;
-    background: #00796b;
+    background: var(--brand);
     color: white;
     text-decoration: none;
     border-radius: 30px;
@@ -543,15 +554,9 @@ header {
 }
 
 .map-btn:hover {
-    background: #ff5722;
+    background: var(--accent);
     transform: scale(1.05);
 }
-
-/* ডার্ক মোড সাপোর্ট */
-.dark-mode .location-box { background: #1e1e1e; border-color: #333; }
-.dark-mode .location-details { background: #2c2c2c; color: #ddd; }
-.dark-mode .location-title { color: #80cbc4; }
-
 
 /* ইমপ্যাক্ট সেকশন ডিজাইন */
 .impact-section {
@@ -568,70 +573,57 @@ header {
 }
 
 .counter-card {
-    background: #ffffff;
+    background: var(--surface);
     padding: 30px 20px;
     border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    transition: 0.3s;
-    border-bottom: 4px solid #00796b;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.4s ease;
+    border-bottom: 4px solid var(--brand);
 }
 
 .counter-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 35px rgba(0, 121, 107, 0.15);
+    box-shadow: 0 15px 35px rgba(0, 121, 107, 0.2);
 }
 
 .counter-icon {
     font-size: 35px;
-    color: #ff5722;
+    color: var(--accent);
     margin-bottom: 15px;
 }
 
 .counter-number {
     font-size: 32px;
     font-weight: 800;
-    color: #00796b;
+    color: var(--brand);
     margin-bottom: 5px;
 }
+
+.dark-mode .counter-number { color: var(--brand-light); }
 
 .counter-card p {
     font-size: 15px;
     font-weight: 600;
-    color: #666;
-}
-
-/* ডার্ক মোড সাপোর্ট */
-body.dark-mode .counter-card {
-    background: #1e1e1e;
-    border-color: #4db6ac;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
-
-body.dark-mode .counter-number {
-    color: #ffffff;
-}
-
-body.dark-mode .counter-card p {
-    color: #aaaaaa;
+    color: var(--text-muted);
 }
 
 /* ১. রিভিউ কার্ড মেইন কন্টেইনার */
 .rating-display-card {
-    background: #ffffff;
+    background: var(--surface);
     max-width: 400px;
     margin: 30px auto;
     padding: 30px 20px;
     border-radius: 20px;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    border: 1px solid rgba(0, 121, 107, 0.1);
-    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--surface-border);
+    transition: background 0.4s ease;
 }
 
 /* ২. কার্ডের টাইটেল */
 .rating-display-card h3 {
     font-size: 20px;
-    color: #00796b;
+    color: var(--brand);
     margin-bottom: 20px;
     display: flex;
     align-items: center;
@@ -647,7 +639,7 @@ body.dark-mode .counter-card p {
 #avgRating {
     font-size: 48px;
     font-weight: 800;
-    color: #333;
+    color: var(--text);
     display: block;
     line-height: 1;
 }
@@ -683,7 +675,7 @@ body.dark-mode .counter-card p {
 }
 
 .average-rating p {
-    color: #777;
+    color: var(--text-muted);
     font-size: 14px;
     margin-top: 5px;
 }
@@ -694,7 +686,7 @@ body.dark-mode .counter-card p {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    background: linear-gradient(135deg, #00796b, #004d40);
+    background: linear-gradient(135deg, var(--brand), var(--brand-dark));
     color: #ffffff !important;
     text-decoration: none;
     padding: 12px 25px;
@@ -710,7 +702,6 @@ body.dark-mode .counter-card p {
 .feedback-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(0, 121, 107, 0.4);
-    background: linear-gradient(135deg, #00897b, #00695c);
 }
 
 .feedback-btn i {
@@ -722,29 +713,7 @@ body.dark-mode .counter-card p {
     transform: rotate(-15deg) scale(1.2);
 }
 
-/* ৬. ডার্ক মোড সাপোর্ট */
-body.dark-mode .rating-display-card {
-    background: #1e1e1e;
-    border-color: #333;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-
-body.dark-mode .rating-display-card h3 {
-    color: #4db6ac;
-}
-
-body.dark-mode #avgRating {
-    color: #ffffff;
-}
-
-body.dark-mode .average-rating p {
-    color: #bbb;
-}
-
-body.dark-mode .feedback-btn {
-    background: linear-gradient(135deg, #4db6ac, #00796b);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-}
+body.dark-mode .rating-display-card h3 { color: var(--brand-light); }
 
 
 
@@ -757,23 +726,23 @@ body.dark-mode .feedback-btn {
    প্রিমিয়াম ফুটার (Dark & Light Mode Support)
    ========================================= */
 
-/* ১. ফুটার কালার ভেরিয়েবল (ডিফল্ট লাইট মোড হিসেবে কাজ করবে) */
+/* ১. ফুটার কালার ভেরিয়েবল - মূল ব্র্যান্ড থিমের সাথে সামঞ্জস্যপূর্ণ */
 :root {
-    --footer-bg: #ffffff;           /* গাঢ় সবুজ থিম */
-    --footer-heading: #121212;      /* শিরোনামের রঙ */
-    --footer-text: #121212;         /* বিবরণ ও লিংকের রঙ */
-    --footer-accent: #121212;       /* হাইলাইট কালার */
-    --footer-border: rgba(255, 255, 255, 0.1);
+    --footer-bg: var(--brand-dark);
+    --footer-heading: #ffffff;
+    --footer-text: rgba(255, 255, 255, 0.75);
+    --footer-accent: #80cbc4;
+    --footer-border: rgba(255, 255, 255, 0.12);
     --footer-icon-bg: rgba(255, 255, 255, 0.08);
 }
 
 /* ২. যখন বডিতে .dark-mode ক্লাস থাকবে (ডার্ক মোড সাপোর্ট) */
 body.dark-mode .main-footer {
-    --footer-bg: #121212;           /* ডার্ক মোডে কালো ব্যাকগ্রাউন্ড */
-    --footer-heading: #ffffff;      /* শিরোনাম সাদাই থাকবে */
-    --footer-text: #999999;         /* ডার্ক মোডে লেখা একটু হালকা হবে */
-    --footer-accent: #80cbc4;       /* ডার্ক মোডে একটু উজ্জ্বল একসেন্ট */
-    --footer-border: rgba(255, 255, 255, 0.05);
+    --footer-bg: #071410;
+    --footer-heading: #ffffff;
+    --footer-text: rgba(255, 255, 255, 0.6);
+    --footer-accent: #80cbc4;
+    --footer-border: rgba(255, 255, 255, 0.08);
     --footer-icon-bg: rgba(255, 255, 255, 0.05);
 }
 
@@ -861,14 +830,14 @@ body.dark-mode .main-footer {
 
 /* ৬. সোশ্যাল আইকন */
 .social-links {
-  color: #black;
+    color: var(--footer-heading);
     margin-top: 25px;
     display: flex;
     gap: 15px;
 }
 
 .social-links a {
-    color: #black;
+    color: var(--footer-heading);
     background: var(--footer-icon-bg);
     width: 40px;
     height: 40px;
@@ -934,14 +903,14 @@ body.dark-mode .main-footer {
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: var(--transition);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 10px 30px rgba(0, 77, 64, 0.3);
         }
 
         .smart-sub-btn:hover {
             transform: translateY(-3px) scale(1.03);
             background: white;
-            color: var(--primary-dark);
+            color: var(--brand-dark);
             box-shadow: 0 15px 40px rgba(0, 191, 165, 0.5);
         }
 
